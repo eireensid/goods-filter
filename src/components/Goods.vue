@@ -10,8 +10,8 @@
                         <div class="card-text">
                             <form>
                                 <div class="form-group">
-                                    <select class="form-control">
-                                        <option>Бренд</option>
+                                    <select class="form-control" v-model="brand">
+                                        <option value="">Бренд</option>
                                         <option>Super</option>
                                         <option>Puper</option>
                                         <option>Cool</option>
@@ -19,8 +19,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control">
-                                        <option>Размер</option>
+                                    <select class="form-control" v-model="size">
+                                        <option value="">Размер</option>
                                         <option>29</option>
                                         <option>31</option>
                                         <option>35</option>
@@ -29,8 +29,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control">
-                                        <option>Цвет</option>
+                                    <select class="form-control" v-model="color">
+                                        <option value="">Цвет</option>
                                         <option>Синий</option>
                                         <option>Красный</option>
                                         <option>Зеленый</option>
@@ -39,7 +39,10 @@
                                     </select>
                                 </div>
                                 <div class="text-right">
-                                    <a href="#" class="btn btn-sm btn-secondary">Сбросить</a>
+                                    <button :disabled="isFilterClearBtn" @click="filterClearBtnOnClick">
+                                        Сбросить
+                                        <!-- <a class="btn btn-sm btn-secondary" href="#">Сбросить</a> -->
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -48,10 +51,10 @@
             </div>
         </div>
         <div class="alert alert-light" role="alert">
-            Найдено 2 товара
+            Найдено {{ filteredProducts.length }} товара
         </div>
         <div class="row">
-          <div v-for="(p, ind) in products" :key="'product' + ind" class="col-6 mb-4">
+          <div v-for="(p, ind) in filteredProducts" :key="'product' + ind" class="col-6 mb-4">
             <GoodCard :name="p.name" :img="p.img" :category="p.category" :oldPrice="p.oldPrice" :price="p.price" :brand="p.brand" :size="p.size" :color="p.color" />
           </div>
         </div>
@@ -69,7 +72,28 @@ export default {
   },
   data () {
     return {
-      products: []
+      products: [],
+      brand: '',
+      size: '',
+      color: ''
+    }
+  },
+  computed: {
+    filteredProducts () {
+      let res = []
+      for (let i = 0; i < this.products.length; i++) {
+        let cur = this.products[i]
+        const isColor = !this.color || cur.color.toLowerCase() === this.color.toLowerCase()
+        const isBrand = !this.brand || cur.brand.toLowerCase() === this.brand.toLowerCase()
+        const isSize = !this.size || String(cur.size).toLowerCase() === this.size.toLowerCase()
+        if (isColor && isBrand && isSize) {
+          res.push(cur)
+        }
+      }
+      return res
+    },
+    isFilterClearBtn () {
+      return !this.color && !this.brand && !this.size
     }
   },
   created () {
@@ -118,6 +142,13 @@ export default {
         color: 'зеленый'
       }
     ]
+  },
+  methods: {
+    filterClearBtnOnClick () {
+      this.brand = ''
+      this.size = ''
+      this.color = ''
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="container">
+      <div @click="onClickCard" class="container">
           <div class="row no-gutters">
               <div class="col pl-2">
                   <div class="card text-center border-0 shadow-sm mb-3 bg-white rounded-lg">
@@ -17,7 +17,7 @@
                                   <del>{{ oldPrice }}</del>
                                   <strong>{{ price }}</strong>
                               </div>
-                              <div class="alert alert-dark p-0 m-0" role="alert">
+                              <div v-show="isShowAdditionalInfo" class="alert alert-dark p-0 m-0" role="alert">
                                   <div>
                                       <small>
                                           <strong>Бренд</strong> {{ brand }}
@@ -35,7 +35,7 @@
                                   </div>
                               </div>
                           </div>
-                          <a href="#" class="btn btn-primary stretched-link m-1">Купить</a>
+                          <a @click="onClickBuyBtn" href="#" class="btn btn-primary m-1">Купить</a>
                       </div>
                   </div>
               </div>
@@ -48,9 +48,23 @@
 
 export default {
   name: 'GoodCard',
+  data () {
+    return {
+      isShowAdditionalInfo: false
+    }
+  },
   props: [
     'name', 'img', 'category', 'oldPrice', 'price', 'brand', 'size', 'color'
-  ]
+  ],
+  methods: {
+    onClickBuyBtn (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    },
+    onClickCard () {
+      this.isShowAdditionalInfo = !this.isShowAdditionalInfo
+    }
+  }
 }
 </script>
 
