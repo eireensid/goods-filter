@@ -39,7 +39,7 @@
                                     </select>
                                 </div>
                                 <div class="text-right">
-                                    <button :disabled="isFilterClearBtn" @click="filterClearBtnOnClick">
+                                    <button :disabled="isFilterClearBtn" @click="filterClearBtnOnClick" class="btn btn-sm btn-secondary">
                                         Сбросить
                                         <!-- <a class="btn btn-sm btn-secondary" href="#">Сбросить</a> -->
                                     </button>
@@ -51,34 +51,44 @@
             </div>
         </div>
         <div class="alert alert-light" role="alert">
-            Найдено {{ filteredProducts.length }} товара
+            {{ findGoodsCountText }}
         </div>
         <div class="row">
           <div v-for="(p, ind) in filteredProducts" :key="'product' + ind" class="col-6 mb-4">
-            <GoodCard :name="p.name" :img="p.img" :category="p.category" :oldPrice="p.oldPrice" :price="p.price" :brand="p.brand" :size="p.size" :color="p.color" />
+            <GoodCard @buy-good="onBuyGood" :name="p.name" :img="p.img" :category="p.category" :oldPrice="p.oldPrice" :price="p.price" :brand="p.brand" :size="p.size" :color="p.color" />
           </div>
         </div>
     </div>
+    <Alert :goodName="buyGoodName"/>
   </div>
 </template>
 
 <script>
 import GoodCard from './GoodCard.vue'
+import Alert from './Alert.vue'
 
 export default {
   name: 'GoodsComponent',
   components: {
-    GoodCard
+    GoodCard, Alert
   },
   data () {
     return {
       products: [],
       brand: '',
       size: '',
-      color: ''
+      color: '',
+      buyGoodName: ''
     }
   },
   computed: {
+    findGoodsCountText () {
+      let res = `Найдено ${this.filteredProducts.length} товара`
+      if (this.filteredProducts.length % 10 === 1) {
+        res = `Найден ${this.filteredProducts.length} товар`
+      }
+      return res
+    },
     filteredProducts () {
       let res = []
       for (let i = 0; i < this.products.length; i++) {
@@ -148,6 +158,9 @@ export default {
       this.brand = ''
       this.size = ''
       this.color = ''
+    },
+    onBuyGood (goodName) {
+      this.buyGoodName = goodName
     }
   }
 }

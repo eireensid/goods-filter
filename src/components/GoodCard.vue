@@ -35,7 +35,7 @@
                                   </div>
                               </div>
                           </div>
-                          <a @click="onClickBuyBtn" href="#" class="btn btn-primary m-1">Купить</a>
+                          <a @click="onClickBuyBtn" href="#" class="btn btn-primary m-1" data-toggle="modal" data-target="#exampleModal">Купить</a>
                       </div>
                   </div>
               </div>
@@ -45,11 +45,11 @@
 </template>
 
 <script>
-
 export default {
   name: 'GoodCard',
   data () {
     return {
+      isBuyBtnClick: false,
       isShowAdditionalInfo: false
     }
   },
@@ -57,12 +57,15 @@ export default {
     'name', 'img', 'category', 'oldPrice', 'price', 'brand', 'size', 'color'
   ],
   methods: {
-    onClickBuyBtn (e) {
-      e.preventDefault()
-      e.stopPropagation()
+    onClickBuyBtn () {
+      this.isBuyBtnClick = true
+      this.$emit('buy-good', this.name)
     },
     onClickCard () {
-      this.isShowAdditionalInfo = !this.isShowAdditionalInfo
+      if (!this.isBuyBtnClick) {
+        this.isShowAdditionalInfo = !this.isShowAdditionalInfo
+      }
+      this.isBuyBtnClick = false
     }
   }
 }
