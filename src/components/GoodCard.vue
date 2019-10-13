@@ -15,7 +15,7 @@
                               </div>
                               <div>
                                   <del>{{ oldPrice }}</del>
-                                  <strong>{{ price }}</strong>
+                                  <strong> {{ price }}</strong>
                               </div>
                               <div v-show="isShowAdditionalInfo" class="alert alert-dark p-0 m-0" role="alert">
                                   <div>

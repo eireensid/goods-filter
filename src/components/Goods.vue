@@ -83,9 +83,18 @@ export default {
   },
   computed: {
     findGoodsCountText () {
-      let res = `Найдено ${this.filteredProducts.length} товара`
+      let res = `Найдено ${this.filteredProducts.length} товаров`
       if (this.filteredProducts.length % 10 === 1) {
         res = `Найден ${this.filteredProducts.length} товар`
+      }
+      if (this.filteredProducts.length % 10 >= 2 && this.filteredProducts.length % 10 <= 4) {
+        res = `Найдено ${this.filteredProducts.length} товара`
+      }
+      if (this.filteredProducts.length >= 5 && this.filteredProducts.length <= 20) {
+        res = `Найдено ${this.filteredProducts.length} товаров`
+      }
+      if (this.filteredProducts.length === 11) {
+        res = `Найдено ${this.filteredProducts.length} товаров`
       }
       return res
     },
@@ -150,6 +159,81 @@ export default {
         brand: 'super',
         size: 29,
         color: 'зеленый'
+      },
+      {
+        id: 5,
+        name: 'куртка красная1',
+        img: 'https://media.istockphoto.com/photos/male-coat-isolated-on-the-white-picture-id163208487',
+        category: 'куртки',
+        oldPrice: 5880,
+        price: 4790,
+        brand: 'cool',
+        size: 31,
+        color: 'красный'
+      },
+      {
+        id: 6,
+        name: 'куртка большая1',
+        img: 'https://media.istockphoto.com/photos/red-womans-sports-jacket-picture-id520887025',
+        category: 'куртки',
+        oldPrice: 5900,
+        price: 3790,
+        brand: 'super',
+        size: 42,
+        color: 'зеленый'
+      },
+      {
+        id: 7,
+        name: 'куртка модная1',
+        img: 'https://media.istockphoto.com/photos/male-coat-isolated-on-the-white-picture-id163208487',
+        category: 'куртки',
+        price: 5550,
+        brand: 'puper',
+        size: 29,
+        color: 'красный'
+      },
+      {
+        id: 8,
+        name: 'куртка выгодная1',
+        img: 'https://media.istockphoto.com/photos/red-womans-sports-jacket-picture-id520887025',
+        category: 'куртки',
+        oldPrice: 7900,
+        price: 1990,
+        brand: 'super',
+        size: 29,
+        color: 'зеленый'
+      },
+      {
+        id: 9,
+        name: 'куртка красная2',
+        img: 'https://media.istockphoto.com/photos/male-coat-isolated-on-the-white-picture-id163208487',
+        category: 'куртки',
+        oldPrice: 5880,
+        price: 4790,
+        brand: 'super',
+        size: 31,
+        color: 'красный'
+      },
+      {
+        id: 10,
+        name: 'куртка большая2',
+        img: 'https://media.istockphoto.com/photos/red-womans-sports-jacket-picture-id520887025',
+        category: 'куртки',
+        oldPrice: 5900,
+        price: 3790,
+        brand: 'super',
+        size: 42,
+        color: 'зеленый'
+      },
+      {
+        id: 11,
+        name: 'куртка модная2',
+        img: 'https://media.istockphoto.com/photos/male-coat-isolated-on-the-white-picture-id163208487',
+        category: 'куртки',
+        price: 5550,
+        brand: 'puper',
+        size: 29,
+        color: 'красный'
       }
     ]
   },
